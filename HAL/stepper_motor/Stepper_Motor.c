@@ -1,0 +1,171 @@
+/*
+ * Stepper_Motor.c
+ *
+ *  Created on: Aug 20, 2023
+ *      Author: Mostafa Hisham
+ *      Layer : HAL
+ *      SWC   : STEPPER MOTOR
+ */
+#include"../LIB/Std_Types.h"
+#include"../LIB/Macros.h"
+#include"../MCAL/DIO.h"
+#include"../HAL/Stepper_Motor_Confg.h"
+#include"../HAL/Stepper_Motor.h"
+#include<util/delay.h>
+
+ static void SM_PinInit(void);
+ static void SM_PinInit(void)
+{
+	DIO_SetPinDirection(SM_PORT,SM_PIN1,PIN_OUTPUT);
+	DIO_SetPinDirection(SM_PORT,SM_PIN2,PIN_OUTPUT);
+	DIO_SetPinDirection(SM_PORT,SM_PIN3,PIN_OUTPUT);
+	DIO_SetPinDirection(SM_PORT,SM_PIN4,PIN_OUTPUT);
+}
+void STEP_FULLStep_CW(u32 Degree_Angle)
+{
+	SM_PinInit();
+	for(u32 iterator = 0 ;iterator < Degree_Angle ;iterator++)
+	{
+		DIO_SetPinLevel(SM_PORT,SM_PIN1,PIN_LOW);//blue
+		DIO_SetPinLevel(SM_PORT,SM_PIN2,PIN_HIGH);//pink
+		DIO_SetPinLevel(SM_PORT,SM_PIN3,PIN_HIGH);//yellow
+		DIO_SetPinLevel(SM_PORT,SM_PIN4,PIN_HIGH);//orange
+		_delay_ms(10);
+		DIO_SetPinLevel(SM_PORT,SM_PIN1,PIN_HIGH);//blue
+		DIO_SetPinLevel(SM_PORT,SM_PIN2,PIN_LOW);//pink
+		DIO_SetPinLevel(SM_PORT,SM_PIN3,PIN_HIGH);//yellow
+		DIO_SetPinLevel(SM_PORT,SM_PIN4,PIN_HIGH);//orange
+		_delay_ms(10);
+		DIO_SetPinLevel(SM_PORT,SM_PIN1,PIN_HIGH);//blue
+		DIO_SetPinLevel(SM_PORT,SM_PIN2,PIN_HIGH);//pink
+		DIO_SetPinLevel(SM_PORT,SM_PIN3,PIN_LOW);//yellow
+		DIO_SetPinLevel(SM_PORT,SM_PIN4,PIN_HIGH);//orange
+		_delay_ms(10);
+		DIO_SetPinLevel(SM_PORT,SM_PIN1,PIN_HIGH);//blue
+		DIO_SetPinLevel(SM_PORT,SM_PIN2,PIN_HIGH);//pink
+		DIO_SetPinLevel(SM_PORT,SM_PIN3,PIN_HIGH);//yellow
+		DIO_SetPinLevel(SM_PORT,SM_PIN4,PIN_LOW);//orange
+		_delay_ms(10);
+	}
+}
+void STEP_FULLStep_CCW(u32 Degree_Angle)
+{
+	  SM_PinInit();
+	for(u32 iterator = 0 ;iterator < Degree_Angle ;iterator++)
+	{
+			DIO_SetPinLevel(SM_PORT,SM_PIN1,PIN_HIGH);//blue
+			DIO_SetPinLevel(SM_PORT,SM_PIN2,PIN_HIGH);//pink
+			DIO_SetPinLevel(SM_PORT,SM_PIN3,PIN_HIGH);//yellow
+			DIO_SetPinLevel(SM_PORT,SM_PIN4,PIN_LOW);//orange
+			_delay_ms(10);
+			DIO_SetPinLevel(SM_PORT,SM_PIN1,PIN_HIGH);//blue
+			DIO_SetPinLevel(SM_PORT,SM_PIN2,PIN_HIGH);//pink
+			DIO_SetPinLevel(SM_PORT,SM_PIN3,PIN_LOW);//yellow
+			DIO_SetPinLevel(SM_PORT,SM_PIN4,PIN_HIGH);//orange
+			_delay_ms(10);
+			DIO_SetPinLevel(SM_PORT,SM_PIN1,PIN_HIGH);//blue
+			DIO_SetPinLevel(SM_PORT,SM_PIN2,PIN_LOW);//pink
+			DIO_SetPinLevel(SM_PORT,SM_PIN3,PIN_HIGH);//yellow
+			DIO_SetPinLevel(SM_PORT,SM_PIN4,PIN_HIGH);//orange
+			_delay_ms(10);
+			DIO_SetPinLevel(SM_PORT,SM_PIN1,PIN_LOW);//blue
+			DIO_SetPinLevel(SM_PORT,SM_PIN2,PIN_HIGH);//pink
+			DIO_SetPinLevel(SM_PORT,SM_PIN3,PIN_HIGH);//yellow
+			DIO_SetPinLevel(SM_PORT,SM_PIN4,PIN_HIGH);//orange
+			_delay_ms(10);
+	}
+}
+void STEP_HALFStep_CW(u32 Degree_Angle)
+{
+	  SM_PinInit();
+	for(u32 iterator = 0 ; iterator < Degree_Angle; iterator++)
+	{
+		DIO_SetPinLevel(SM_PORT,SM_PIN1,PIN_LOW);//BLUE
+		DIO_SetPinLevel(SM_PORT,SM_PIN2,PIN_HIGH);//PINK
+		DIO_SetPinLevel(SM_PORT,SM_PIN3,PIN_HIGH);//YELLOW
+		DIO_SetPinLevel(SM_PORT,SM_PIN4,PIN_LOW);//ORANGE
+		_delay_ms(10);
+		DIO_SetPinLevel(SM_PORT,SM_PIN1,PIN_LOW);//BLUE
+		DIO_SetPinLevel(SM_PORT,SM_PIN2,PIN_HIGH);//PINK
+		DIO_SetPinLevel(SM_PORT,SM_PIN3,PIN_HIGH);//YELLOW
+		DIO_SetPinLevel(SM_PORT,SM_PIN4,PIN_HIGH);//ORANGE
+		_delay_ms(10);
+		DIO_SetPinLevel(SM_PORT,SM_PIN1,PIN_LOW);//BLUE
+		DIO_SetPinLevel(SM_PORT,SM_PIN2,PIN_LOW);//PINK
+		DIO_SetPinLevel(SM_PORT,SM_PIN3,PIN_HIGH);//YELLOW
+		DIO_SetPinLevel(SM_PORT,SM_PIN4,PIN_HIGH);//ORANGE
+		_delay_ms(10);
+		DIO_SetPinLevel(SM_PORT,SM_PIN1,PIN_HIGH);//BLUE
+		DIO_SetPinLevel(SM_PORT,SM_PIN2,PIN_LOW);//PINK
+		DIO_SetPinLevel(SM_PORT,SM_PIN3,PIN_HIGH);//YELLOW
+		DIO_SetPinLevel(SM_PORT,SM_PIN4,PIN_HIGH);//ORANGE
+		_delay_ms(10);
+		DIO_SetPinLevel(SM_PORT,SM_PIN1,PIN_HIGH);//BLUE
+		DIO_SetPinLevel(SM_PORT,SM_PIN2,PIN_LOW);//PINK
+		DIO_SetPinLevel(SM_PORT,SM_PIN3,PIN_LOW);//YELLOW
+		DIO_SetPinLevel(SM_PORT,SM_PIN4,PIN_HIGH);//ORANGE
+		_delay_ms(10);
+		DIO_SetPinLevel(SM_PORT,SM_PIN1,PIN_HIGH);//BLUE
+		DIO_SetPinLevel(SM_PORT,SM_PIN2,PIN_HIGH);//PINK
+		DIO_SetPinLevel(SM_PORT,SM_PIN3,PIN_LOW);//YELLOW
+		DIO_SetPinLevel(SM_PORT,SM_PIN4,PIN_HIGH);//ORANGE
+		_delay_ms(10);
+		DIO_SetPinLevel(SM_PORT,SM_PIN1,PIN_HIGH);//BLUE
+		DIO_SetPinLevel(SM_PORT,SM_PIN2,PIN_HIGH);//PINK
+		DIO_SetPinLevel(SM_PORT,SM_PIN3,PIN_LOW);//YELLOW
+		DIO_SetPinLevel(SM_PORT,SM_PIN4,PIN_LOW);//ORANGE
+		_delay_ms(10);
+		DIO_SetPinLevel(SM_PORT,SM_PIN1,PIN_HIGH);//BLUE
+		DIO_SetPinLevel(SM_PORT,SM_PIN2,PIN_HIGH);//PINK
+		DIO_SetPinLevel(SM_PORT,SM_PIN3,PIN_HIGH);//YELLOW
+		DIO_SetPinLevel(SM_PORT,SM_PIN4,PIN_LOW);//ORANGE
+		_delay_ms(10);
+	}
+}
+void STEP_HALFStep_CCW(u32 Degree_Angle)
+{
+		SM_PinInit();
+	for(u32 iterator = 0; iterator < Degree_Angle; iterator++)
+	{
+		DIO_SetPinLevel(SM_PORT,SM_PIN1,PIN_HIGH);//BLUE
+		DIO_SetPinLevel(SM_PORT,SM_PIN2,PIN_HIGH);//PINK
+		DIO_SetPinLevel(SM_PORT,SM_PIN3,PIN_HIGH);//YELLOW
+		DIO_SetPinLevel(SM_PORT,SM_PIN4,PIN_LOW);//ORANGE
+		_delay_ms(10);
+		DIO_SetPinLevel(SM_PORT,SM_PIN1,PIN_HIGH);//BLUE
+		DIO_SetPinLevel(SM_PORT,SM_PIN2,PIN_HIGH);//PINK
+		DIO_SetPinLevel(SM_PORT,SM_PIN3,PIN_LOW);//YELLOW
+		DIO_SetPinLevel(SM_PORT,SM_PIN4,PIN_LOW);//ORANGE
+		_delay_ms(10);
+		DIO_SetPinLevel(SM_PORT,SM_PIN1,PIN_HIGH);//BLUE
+		DIO_SetPinLevel(SM_PORT,SM_PIN2,PIN_HIGH);//PINK
+		DIO_SetPinLevel(SM_PORT,SM_PIN3,PIN_LOW);//YELLOW
+		DIO_SetPinLevel(SM_PORT,SM_PIN4,PIN_HIGH);//ORANGE
+		_delay_ms(10);
+		DIO_SetPinLevel(SM_PORT,SM_PIN1,PIN_HIGH);//BLUE
+		DIO_SetPinLevel(SM_PORT,SM_PIN2,PIN_LOW);//PINK
+		DIO_SetPinLevel(SM_PORT,SM_PIN3,PIN_LOW);//YELLOW
+		DIO_SetPinLevel(SM_PORT,SM_PIN4,PIN_HIGH);//ORANGE
+		_delay_ms(10);
+		DIO_SetPinLevel(SM_PORT,SM_PIN1,PIN_HIGH);//BLUE
+		DIO_SetPinLevel(SM_PORT,SM_PIN2,PIN_LOW);//PINK
+		DIO_SetPinLevel(SM_PORT,SM_PIN3,PIN_HIGH);//YELLOW
+		DIO_SetPinLevel(SM_PORT,SM_PIN4,PIN_HIGH);//ORANGE
+		_delay_ms(10);
+		DIO_SetPinLevel(SM_PORT,SM_PIN1,PIN_LOW);//BLUE
+		DIO_SetPinLevel(SM_PORT,SM_PIN2,PIN_LOW);//PINK
+		DIO_SetPinLevel(SM_PORT,SM_PIN3,PIN_HIGH);//YELLOW
+		DIO_SetPinLevel(SM_PORT,SM_PIN4,PIN_HIGH);//ORANGE
+		_delay_ms(10);
+		DIO_SetPinLevel(SM_PORT,SM_PIN1,PIN_LOW);//BLUE
+		DIO_SetPinLevel(SM_PORT,SM_PIN2,PIN_HIGH);//PINK
+		DIO_SetPinLevel(SM_PORT,SM_PIN3,PIN_HIGH);//YELLOW
+		DIO_SetPinLevel(SM_PORT,SM_PIN4,PIN_HIGH);//ORANGE
+		_delay_ms(10);
+		DIO_SetPinLevel(SM_PORT,SM_PIN1,PIN_LOW);//BLUE
+		DIO_SetPinLevel(SM_PORT,SM_PIN2,PIN_HIGH);//PINK
+		DIO_SetPinLevel(SM_PORT,SM_PIN3,PIN_HIGH);//YELLOW
+		DIO_SetPinLevel(SM_PORT,SM_PIN4,PIN_LOW);//ORANGE
+		_delay_ms(10);
+	}
+}
